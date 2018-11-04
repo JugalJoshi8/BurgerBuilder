@@ -1,11 +1,12 @@
 import React from 'react';
 import classes from './Modal.module.css';
 const modal = (props) => {
-    
-    return props.show ? 
-        (<div className = {classes.Modal}>
+    const className = props.show ? classes.Modal : (classes.Modal + ' ' + classes.HideModal);
+    return (
+        <div className = {className}>
             {props.children}
-        </div>) : null;  
+        </div>
+    )  
 }
 
 export default modal;

@@ -9,7 +9,11 @@
     box-shadow: 1px 1px 1px black;
     min-height: 200px;
     padding: 12px;
-    animation: slideDown .5s ease-in;
+    transition: all .5s ease-in;
+}
+
+.HideModal {
+    top: -100%;   
 }
 
 @keyframes slideDown {
