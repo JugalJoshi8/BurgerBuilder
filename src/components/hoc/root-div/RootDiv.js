@@ -1,0 +1,5 @@
+import React from 'react';
+
+const rootDiv = (props) => props.children ;
+
+export default rootDiv;
