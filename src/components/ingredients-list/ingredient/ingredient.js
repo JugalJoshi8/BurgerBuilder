@@ -5,7 +5,7 @@ class Ingredient extends Component {
         return (
             <div className = {classes.Ingredient}>
                 <div>{this.props.type.toUpperCase()}({this.props.value})</div>
-                <button className = {classes.LessButton} onClick = {this.props.removeIngredient}>Less</button>
+                <button disabled = {!this.props.value} className = {classes.LessButton} onClick = {this.props.removeIngredient}>Less</button>
                 <button className = {classes.MoreButton} onClick = {this.props.addIngredient}>More</button>
             </div>
         )
