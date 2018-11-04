@@ -1,7 +1,6 @@
 .Ingredient {
     justify-content: space-around;
     width: 100%;
-    background-color: chocolate;
     display: flex;
     align-items: center;
     margin: 10px 0;

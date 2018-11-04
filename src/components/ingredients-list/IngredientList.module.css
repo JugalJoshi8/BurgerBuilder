@@ -1,3 +1,7 @@
 .IngredientList {
     width: 100%;
+    background-color: chocolate;
+    text-align: center;
+    padding: 10px;
+    box-shadow: 0px 4px 10px black;
 }

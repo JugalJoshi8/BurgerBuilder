@@ -1,0 +1,21 @@
+.Danger, .Success {
+    font-size: 1.2rem;
+    color: white;
+    box-shadow: 0px 1px 1px black;
+    border: none;
+    height: 30px;
+    text-align: center;
+    width: 100px;
+    height: 30px;
+    border-radius: 3px;
+    cursor: pointer;
+    margin: 5px;
+}
+
+.Danger {
+    background: red;
+}
+
+.Success {
+    background: green;
+}

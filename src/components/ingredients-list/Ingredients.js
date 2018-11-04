@@ -11,13 +11,13 @@ class Ingredients extends Component {
             )
         });
         return (
-            <RootDiv>
+            <div className={classes.IngredientList}>
                 <div>Total Price: ${this.props.price}</div>
-                <div className={classes.IngredientList}>
+                <div>
                     {ingredients}
                 </div>
-                <button disabled = {!this.props.purchasable}>Order Now</button>
-            </RootDiv>
+                <button onClick = {this.props.orderClicked} disabled = {!this.props.purchasable}>Order Now</button>
+            </div>
         )
     }
 }
