@@ -9,7 +9,7 @@
 }
 
 .Hamburger {
-    display: flex;
+    display: none;
     flex-direction: column;
     justify-content: space-between;
     height: 100%;
@@ -23,3 +23,17 @@
     height: 3px;
     background: white;
 } 
+
+.NavList {
+    display: flex;
+    height: 100%;
+}
+
+@media (max-width: 600px) {
+    .NavList {
+        display: none;
+    }
+    .Hamburger {
+        display: flex;
+    }
+}

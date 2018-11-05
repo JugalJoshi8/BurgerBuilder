@@ -23,6 +23,17 @@
     justify-content: center;
 }
 
+@media (max-width: 600px) {
+    .NavItem {
+        height: 30px;
+        width: 100%;
+    } 
+    .NavItem:not(:first-child) {
+        border-left: none;
+        border-top: solid 1px snow;
+    }
+}
+
 .active {
     border-bottom: 4px green;
 }
