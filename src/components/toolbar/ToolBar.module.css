@@ -1,0 +1,25 @@
+.ToolBar {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgb(233, 80, 19);
+    box-shadow: 0 4px 10px saddlebrown;
+    box-sizing: border-box;
+}
+
+.Hamburger {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    padding: 10px 10px;
+    width: 50px;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.Hamburger>div {
+    height: 3px;
+    background: white;
+} 

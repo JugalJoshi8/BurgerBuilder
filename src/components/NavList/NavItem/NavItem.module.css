@@ -1,0 +1,28 @@
+.NavItem {
+    height: 100%;
+    display:flex;
+    align-items: center;
+    width: 150px;
+
+}
+
+.NavItem:not(:first-child) {
+    border-left: solid 2px snow;
+}
+
+.NavItem  a{
+    background-color: rgb(68, 4, 4);
+    box-sizing: border-box;
+    text-decoration: none;
+    cursor: pointer;
+    height: 100%;
+    color: white;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.active {
+    border-bottom: 4px green;
+}

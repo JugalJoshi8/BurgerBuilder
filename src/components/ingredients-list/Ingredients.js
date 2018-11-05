@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Ingredient from './ingredient/ingredient';
 import classes from './IngredientList.module.css';
-import RootDiv from './../hoc/root-div/RootDiv'
 
 class Ingredients extends Component {
     render() {
