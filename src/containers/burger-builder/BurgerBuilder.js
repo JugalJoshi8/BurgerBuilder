@@ -13,15 +13,16 @@ import ServiceHandler from '../../components/hoc/service-handler/ServiceHandler'
 
 class BurgerBuilder extends Component {
     state = {
-        ingredients: {
-            salad: 0,
-            cheese: 0,
-            meat: 0,
-            bacon: 0
-        },
+        ingredients: null,
         totalPrice: 0,
         purchasable: false,
         showOrderSummary: false
+    }
+
+    componentDidMount() {
+        axios.get('/ingredients.json').then( res => {
+            this.setState({ingredients: res.data});
+        });
     }
 
     prices = {
@@ -78,6 +79,9 @@ class BurgerBuilder extends Component {
     }
 
     render() {
+        if(!this.state.ingredients) {
+            return null;
+        }
         return (
             <RootDiv>
                 <Backdrop show = {this.state.showOrderSummary} clicked = {this.hideOrderSummary}/>

@@ -5,25 +5,29 @@ import Modal from '../../ui/Modal/Modal';
 import BackDrop from '../../ui/backdrop/Backdrop';
 
 const serviceHandler = (WrappedComp) => {
-  
     return class extends Component {
         state = {
             loading: null,
             error: null
         }
 
-        componentDidMount() {
-            axios.interceptors.request.use((request) => {
+        componentWillMount() {
+            this.reqIntceptor = axios.interceptors.request.use((request) => {
                 this.setState({loading: true, error: null});
                 return request;
             });
 
-            axios.interceptors.response.use((response) => {
+            this.resIntceptor = axios.interceptors.response.use((response) => {
                 this.setState({loading: null, error: null});
                 return response;
             }, () => {
                 this.setState({loading: false, error: true})
             });
+        }
+
+        componentWillUnmount() {
+            axios.interceptors.request.eject(this.reqIntceptor);
+            axios.interceptors.response.eject(this.resIntceptor);
         }
 
         closeErrorModal = () => {
