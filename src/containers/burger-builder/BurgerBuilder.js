@@ -6,6 +6,9 @@ import RootDiv from '../../components/hoc/root-div/RootDiv';
 import Modal from '../../components/ui/Modal/Modal';
 import OrderSummary from '../../components/order-summary/OrderSummary';
 import Backdrop from '../../components/ui/backdrop/Backdrop';
+import axios from '../../AxiosOrders';
+import ServiceHandler from '../../components/hoc/service-handler/ServiceHandler';
+
 
 
 class BurgerBuilder extends Component {
@@ -64,7 +67,14 @@ class BurgerBuilder extends Component {
     }
 
     checkOut = () => {
-        alert('ordered');
+        this.setState({showOrderSummary: false});
+        const order = {
+            ingredients: this.state.ingredients,
+            price: this.state.totalPrice
+        };
+        axios.post('/orders.json', order).then((response) => {
+            console.log(response);
+        })
     }
 
     render() {
@@ -83,4 +93,4 @@ class BurgerBuilder extends Component {
     }
 }
 
-export default BurgerBuilder;
+export default ServiceHandler(BurgerBuilder);
