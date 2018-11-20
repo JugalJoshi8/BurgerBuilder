@@ -4,6 +4,15 @@
     height: 100%;
 }
 
+.navLink {
+    display: flex;
+    height: 100%;
+}
+
+.activeNavLink {
+    border-bottom: 2px solid lightsalmon;
+}
+
 @media (max-width: 600px) {
     .NavList {
         flex-direction: column;

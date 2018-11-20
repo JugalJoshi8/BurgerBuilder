@@ -25,8 +25,8 @@ class Layout extends Component {
                 <SideDrawer show={this.state.showDrawer} hideDrawer={this.hideDrawer}></SideDrawer>
                 <ToolBar showDrawer={this.showDrawer}></ToolBar>
                 <Switch>
-                    <Route path='/check-out' Component={CheckOut} />
-                    <Route path='/' Component={BurgerBuilder} />
+                    <Route path='/check-out' component={CheckOut} />
+                    <Route path='/' component={BurgerBuilder} />
                 </Switch>
             </div>
 
