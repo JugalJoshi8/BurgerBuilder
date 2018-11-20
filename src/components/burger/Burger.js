@@ -14,7 +14,6 @@ const burger = (props) => {
         return arr;
     }, []);
 
-    console.log(ingredients);
     return (
         <div className = {styles.Burger}>
             <BurgerIngredient type = 'bread-top' />

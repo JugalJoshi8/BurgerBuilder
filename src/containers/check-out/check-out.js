@@ -3,14 +3,22 @@ import Burger from './../../components/burger/Burger';
 
 class CheckOut extends Component {
     state = {
-        ingredients: {
-            cheese: 1,
-            salad: 1,
-            bacon: 2,
-            meat: 1
-        }
+        ingredients: null
     }
+
+    componentWillMount() {
+        let ingredients = {};
+        const searchQuery = new URLSearchParams(this.props.location.search).entries();
+        for(let query of searchQuery) {
+            ingredients[query[0]] = +query[1]; 
+        }
+        this.setState({ingredients: ingredients});
+    }
+
     render() {
+        if(!this.state.ingredients) {
+            return null;
+        }
         return (
             <div>
                 <Burger ingredients={this.state.ingredients} />

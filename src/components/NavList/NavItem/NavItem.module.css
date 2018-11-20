@@ -10,7 +10,7 @@
     border-left: solid 2px snow;
 }
 
-.NavItem  a{
+.NavItem  div{
     background-color: rgb(68, 4, 4);
     box-sizing: border-box;
     text-decoration: none;

@@ -26,7 +26,7 @@ class Layout extends Component {
                 <ToolBar showDrawer={this.showDrawer}></ToolBar>
                 <Switch>
                     <Route path='/check-out' component={CheckOut} />
-                    <Route path='/' component={BurgerBuilder} />
+                    <Route path='/' exact component={BurgerBuilder} />
                 </Switch>
             </div>
 
