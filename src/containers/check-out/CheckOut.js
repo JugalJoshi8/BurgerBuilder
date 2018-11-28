@@ -36,7 +36,7 @@ class CheckOut extends Component {
                     <Button type ='Danger'>Cancel</Button>
                     <Button clicked = {this.goToContactInfo} type = 'Success'>Contact Info</Button>
                 </div>
-                <Route path = {`this.props.match.path${'/contact-info'}`} component = {ContactInfo}/>
+                <Route path = {`${this.props.match.path}${'/contact-info'}`} component = {ContactInfo}/>
             </div>
         )
     }
