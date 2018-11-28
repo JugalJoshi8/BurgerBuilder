@@ -3,7 +3,7 @@ import BurgerBuilder from './../../containers/burger-builder/BurgerBuilder';
 import ToolBar from '../toolbar/Toolbar';
 import SideDrawer from '../sidedrawer/SideDrawer';
 import { Route, Switch } from 'react-router-dom';
-import CheckOut from './../../containers/check-out/check-out';
+import CheckOut from './../../containers/check-out/CheckOut';
 
 
 class Layout extends Component {
