@@ -4,6 +4,7 @@ import ToolBar from '../toolbar/Toolbar';
 import SideDrawer from '../sidedrawer/SideDrawer';
 import { Route, Switch } from 'react-router-dom';
 import CheckOut from './../../containers/check-out/CheckOut';
+import Orders from './../../containers/orders/Orders';
 
 
 class Layout extends Component {
@@ -27,6 +28,7 @@ class Layout extends Component {
                 <Switch>
                     <Route path='/check-out' component={CheckOut} />
                     <Route path='/' exact component={BurgerBuilder} />
+                    <Route path='/orders' exact component={Orders} />
                 </Switch>
             </div>
 

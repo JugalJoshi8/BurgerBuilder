@@ -16,7 +16,7 @@ class ContactInfo extends Component {
             }
         };
         axios.post('/orders.json', order).then((response) => {
-            console.log(response);
+            this.props.history.push('/');
         })
     }
 

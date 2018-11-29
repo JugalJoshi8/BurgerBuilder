@@ -1,0 +1,12 @@
+.Order {
+    display: flex;
+    padding: 10px;
+    border: solid 1px #eee;
+    box-shadow: 0 4px 4px #bbb;
+    height: 50px;
+    align-items: center;
+}
+
+.Order > div {
+    flex: 1;
+}
