@@ -4,6 +4,7 @@ import Button from '../../components/ui/Button/Button';
 import classes from './CheckOut.module.css';
 import {Route} from 'react-router-dom';
 import ContactInfo from './../ContactInfo/ContactInfo';
+import serviceHandler from './../../components/hoc/service-handler/ServiceHandler';
 
 class CheckOut extends Component {
     state = {
@@ -14,7 +15,12 @@ class CheckOut extends Component {
         let ingredients = {};
         const searchQuery = new URLSearchParams(this.props.location.search).entries();
         for(let query of searchQuery) {
-            ingredients[query[0]] = +query[1]; 
+            if(query[0] === 'price') {
+                this.setState({'price': query[1]});
+            }
+            else {
+                ingredients[query[0]] = +query[1]; 
+            }
         }
         this.setState({ingredients: ingredients});
     }
@@ -36,10 +42,10 @@ class CheckOut extends Component {
                     <Button type ='Danger'>Cancel</Button>
                     <Button clicked = {this.goToContactInfo} type = 'Success'>Contact Info</Button>
                 </div>
-                <Route path = {`{this.props.match.path}${'/contact-info'}`} render = {_ => <ContactInfo ingredients = {this.state.ingredients}></ContactInfo>}/>
+                <Route path = {`${this.props.match.path}/contact-info`} render = {_ =>  <ContactInfo price = {this.state.price} ingredients = {this.state.ingredients}></ContactInfo>}/>  
             </div>
         )
     }
 }
 
-export default CheckOut;
+export default serviceHandler(CheckOut);

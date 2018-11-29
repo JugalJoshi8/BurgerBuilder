@@ -70,19 +70,12 @@ class BurgerBuilder extends Component {
     checkOut = () => {
         //this.props.history.push('/check-out');
         console.log(this.props);
-        let ingredients = [];
+        let ingredients = [`price=${this.state.totalPrice}`];
         for (let ingredient in this.state.ingredients) {
              ingredients.push(encodeURIComponent(ingredient) + '=' + this.state.ingredients[ingredient])
         }
         this.props.history.push({pathname: 'check-out', search: '?' + ingredients.join('&')});
-        //this.setState({showOrderSummary: false});
-        // const order = {
-        //     ingredients: this.state.ingredients,
-        //     price: this.state.totalPrice
-        // };
-        // axios.put('/orders.json', order).then((response) => {
-        //     console.log(response);
-        // })
+        this.setState({showOrderSummary: false});
     }
 
     render() {
