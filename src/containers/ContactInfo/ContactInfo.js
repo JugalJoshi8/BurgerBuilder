@@ -3,6 +3,9 @@ import classes from './ContactInfo.module.css';
 import Button from './../../components/ui/Button/Button';
 
 class ContactInfo extends Component {
+    sendOrder() {
+        
+    }
     render() {
         return (
             <div>
@@ -14,7 +17,7 @@ class ContactInfo extends Component {
                 </div>
                 <div className = {classes.OrderContainer}>
                     <Button type = 'Danger'>Cancel</Button>
-                    <Button type = 'Success'>Order</Button>
+                    <Button clicked = {this.sendOrder} type = 'Success'>Order</Button>
                 </div>
             </div>
         )
