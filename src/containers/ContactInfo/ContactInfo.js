@@ -11,44 +11,53 @@ class ContactInfo extends Component {
                 type: 'input',
                 config: {
                     placeholder: 'Enter House No',
-                    value: '',
                     type: 'text'
-                }
+                },
+                value: ''
             },
             street: {
                 type: 'input',
                 config: {
                     placeholder: 'Enter Street',
-                    value: '',
                     type: 'text'
-                }
+                },
+                value: ''
             },
             city: {
                 type: 'input',
                 config: {
                     placeholder: 'Enter City',
-                    value: '',
                     type: 'text'
-                }
+                },
+                value: ''
             },
             zipCode: {
                 type: 'input',
                 config: {
                     placeholder: 'Enter Zip code',
-                    value: '',
                     type: 'text'
-                }
+                },
+                value: ''
             },
             deliveryType: {
                 type: 'select',
                 config: {
-                    values: [{ value: 'fastest', displayValue: 'Fastest' },
-                    { value: 'cheapest', displayValue: 'Cheapest' }],
-                    value: ''
-                }
+                    options: [{ value: 'fastest', displayValue: 'Fastest' },
+                    { value: 'cheapest', displayValue: 'Cheapest' }]
+                },
+                value: ''
             }
         }
     }
+
+    onInputChange = (e, id) =>{
+        const updatedFormElements = {...this.state.formElements};
+        const updatedFormElement = {...updatedFormElements[id]};
+        updatedFormElement.value = e.target.value;
+        updatedFormElements[id] = updatedFormElement;
+        this.setState({formElements: updatedFormElements})
+    }
+
     sendOrder = _ => {
         const order = {
             ingredients: this.props.ingredients,
@@ -68,7 +77,7 @@ class ContactInfo extends Component {
     render() {
         const formFields = [];
         for(let key in this.state.formElements) {
-            formFields.push(<Input key = {key} config = {this.state.formElements[key]['config']} type = {this.state.formElements[key]['type']}></Input>);
+            formFields.push(<Input key = {key} identifier = {key} changed = {(e, id) => this.onInputChange(e, id)} value = {this.state.formElements[key]['value']} config = {this.state.formElements[key]['config']} type = {this.state.formElements[key]['type']}></Input>);
         }
         return (
             <div>
