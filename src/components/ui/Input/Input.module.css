@@ -1,0 +1,13 @@
+.Input {
+    display: block;
+    width: 100%;
+    box-shadow: 2px 4px 4px #999;
+    border: solid 1px #ddd;
+    margin: 10px 0;
+    padding: 10px;
+}
+
+.Input:focus {
+    outline: none;
+    border: solid 2px rgb(56, 1, 1);
+}
