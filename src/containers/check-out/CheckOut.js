@@ -35,9 +35,15 @@ class CheckOut extends Component {
             return null;
         }
         return (
-            <div>
-                <h2>Below is your burger</h2>
-                <Burger ingredients={this.state.ingredients} />
+            <div className = {classes.Wrapper}>
+                <h2>Below are your burger ingredients</h2>
+                <div className = {classes.Ingredients}>
+                    <div>Cheese: {this.state.ingredients.cheese}</div>
+                    <div>Salad: {this.state.ingredients.salad}</div>
+                    <div>Meat: {this.state.ingredients.meat}</div>
+                    <div>Bacon: {this.state.ingredients.bacon}</div>
+                </div>
+                {/* <Burger ingredients={this.state.ingredients} /> */}
                 <div className = {classes.BtnContainer}>
                     <Button type ='Danger'>Cancel</Button>
                     <Button clicked = {this.goToContactInfo} type = 'Success'>Contact Info</Button>

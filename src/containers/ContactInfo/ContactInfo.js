@@ -2,8 +2,53 @@ import React, { Component } from 'react';
 import classes from './ContactInfo.module.css';
 import Button from './../../components/ui/Button/Button';
 import axios from './../../AxiosOrders';
+import Input from './../../components/ui/Input/Input';
 
 class ContactInfo extends Component {
+    state = {
+        formElements: {
+            houseNo: {
+                type: 'input',
+                config: {
+                    placeholder: 'Enter House No',
+                    value: '',
+                    type: 'text'
+                }
+            },
+            street: {
+                type: 'input',
+                config: {
+                    placeholder: 'Enter Street',
+                    value: '',
+                    type: 'text'
+                }
+            },
+            city: {
+                type: 'input',
+                config: {
+                    placeholder: 'Enter City',
+                    value: '',
+                    type: 'text'
+                }
+            },
+            zipCode: {
+                type: 'input',
+                config: {
+                    placeholder: 'Enter Zip code',
+                    value: '',
+                    type: 'text'
+                }
+            },
+            deliveryType: {
+                type: 'select',
+                config: {
+                    values: [{ value: 'fastest', displayValue: 'Fastest' },
+                    { value: 'cheapest', displayValue: 'Cheapest' }],
+                    value: ''
+                }
+            }
+        }
+    }
     sendOrder = _ => {
         const order = {
             ingredients: this.props.ingredients,
@@ -21,14 +66,14 @@ class ContactInfo extends Component {
     }
 
     render() {
-        console.log('started');
+        const formFields = [];
+        for(let key in this.state.formElements) {
+            formFields.push(<Input key = {key} config = {this.state.formElements[key]['config']} type = {this.state.formElements[key]['type']}></Input>);
+        }
         return (
             <div>
                 <div className={classes.ContactInfo}>
-                    <input placeholder='Enter House No' type="text" />
-                    <input placeholder='Enter street' type="text" />
-                    <input placeholder='Enter City' type="text" />
-                    <input placeholder='Enter zipcode' type="text" />
+                   {formFields}
                 </div>
                 <div className={classes.OrderContainer}>
                     <Button type='Danger'>Cancel</Button>

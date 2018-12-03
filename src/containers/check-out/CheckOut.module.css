@@ -2,3 +2,20 @@
     display: flex;
     justify-content: center;
 }
+
+.Ingredients {
+    width: 100%;   
+}
+
+.Ingredients > div {
+    height: 50px;
+    border-top: solid 1px #eee;
+    box-shadow: 2px 4px 4px #666;
+    display: flex;
+    align-items: center; 
+}
+
+.Wrapper {
+    width: 80%;
+    margin: 0 auto;
+}
