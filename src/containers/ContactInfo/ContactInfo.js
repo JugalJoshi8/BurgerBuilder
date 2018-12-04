@@ -45,7 +45,7 @@ class ContactInfo extends Component {
                     options: [{ value: 'fastest', displayValue: 'Fastest' },
                     { value: 'cheapest', displayValue: 'Cheapest' }]
                 },
-                value: ''
+                value: 'fastest'
             }
         }
     }
@@ -58,20 +58,20 @@ class ContactInfo extends Component {
         this.setState({formElements: updatedFormElements})
     }
 
-    sendOrder = _ => {
+    sendOrder = (e) => {
+        e.preventDefault();
+        const orderDetails = {};
+        for(let key in this.state.formElements) {
+            orderDetails[key] = this.state.formElements[key]['value'];
+        }
         const order = {
             ingredients: this.props.ingredients,
             price: this.props.price,
-            address: {
-                houseNo: '123',
-                street: 'street1',
-                city: 'city1',
-                zipCode: '123456'
-            }
+            orderDetails
         };
         axios.post('/orders.json', order).then((response) => {
             this.props.history.push('/');
-        })
+        });
     }
 
     render() {
@@ -80,15 +80,15 @@ class ContactInfo extends Component {
             formFields.push(<Input key = {key} identifier = {key} changed = {(e, id) => this.onInputChange(e, id)} value = {this.state.formElements[key]['value']} config = {this.state.formElements[key]['config']} type = {this.state.formElements[key]['type']}></Input>);
         }
         return (
-            <div>
+            <form onSubmit = {e => this.sendOrder(e)}>
                 <div className={classes.ContactInfo}>
                    {formFields}
                 </div>
                 <div className={classes.OrderContainer}>
                     <Button type='Danger'>Cancel</Button>
-                    <Button clicked={this.sendOrder} type='Success'>Order</Button>
+                    <Button  type='Success'>Order</Button>
                 </div>
-            </div>
+            </form>
         )
     }
 }

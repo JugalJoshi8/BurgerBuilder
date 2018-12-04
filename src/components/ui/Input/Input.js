@@ -11,6 +11,7 @@ const Input = (props) => {
             inputField = <select className={classes.Input} value = {props.value} onChange = {(e) => props.changed(e, props.identifier)}>
                 {props.config.options.map(option => <option key = {option.value} value = {option.value}>{option.displayValue}</option>)}
             </select>;
+            break;
         default:
             break;
     }

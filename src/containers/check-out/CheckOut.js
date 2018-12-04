@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Burger from '../../components/burger/Burger';
 import Button from '../../components/ui/Button/Button';
 import classes from './CheckOut.module.css';
 import {Route} from 'react-router-dom';
