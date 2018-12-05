@@ -13,7 +13,12 @@ class ContactInfo extends Component {
                     placeholder: 'Enter House No',
                     type: 'text'
                 },
-                value: ''
+                value: '',
+                validations: {
+                    required: true
+                },
+                isValid: false,
+                touched: false
             },
             street: {
                 type: 'input',
@@ -21,7 +26,12 @@ class ContactInfo extends Component {
                     placeholder: 'Enter Street',
                     type: 'text'
                 },
-                value: ''
+                value: '',
+                validations: {
+                    required: true
+                },
+                isValid: false,
+                touched: false
             },
             city: {
                 type: 'input',
@@ -29,7 +39,12 @@ class ContactInfo extends Component {
                     placeholder: 'Enter City',
                     type: 'text'
                 },
-                value: ''
+                value: '',
+                validations: {
+                    required: true
+                },
+                isValid: false,
+                touched: false
             },
             zipCode: {
                 type: 'input',
@@ -37,7 +52,14 @@ class ContactInfo extends Component {
                     placeholder: 'Enter Zip code',
                     type: 'text'
                 },
-                value: ''
+                value: '',
+                validations: {
+                    required: true,
+                    minLength: 5,
+                    maxLength: 8
+                },
+                isValid: false,
+                touched: false
             },
             deliveryType: {
                 type: 'select',
@@ -45,17 +67,44 @@ class ContactInfo extends Component {
                     options: [{ value: 'fastest', displayValue: 'Fastest' },
                     { value: 'cheapest', displayValue: 'Cheapest' }]
                 },
-                value: 'fastest'
+                value: 'fastest',
+                validations: {},
+                isValid: true,
+                touched: false
             }
+        },
+        isFormValid: false
+    }
+
+    isValid = (value, validations) => {
+        let isValid = true;
+        if(validations.required) {
+            isValid = value && value.trim();
         }
+        if(validations.minLength) {
+            isValid = isValid && (value.length >= validations.minLength);
+        }
+        if(validations.maxLength) {
+            isValid = isValid && (value.length <= validations.maxLength);
+        }
+        return isValid;
     }
 
     onInputChange = (e, id) =>{
         const updatedFormElements = {...this.state.formElements};
         const updatedFormElement = {...updatedFormElements[id]};
         updatedFormElement.value = e.target.value;
+        updatedFormElement.isValid = this.isValid(updatedFormElement.value, updatedFormElement.validations);
         updatedFormElements[id] = updatedFormElement;
-        this.setState({formElements: updatedFormElements})
+        updatedFormElement.touched = true;
+        let isFormValid = true;
+        for(let key in updatedFormElements) {
+            if(!updatedFormElements[key]['isValid']) {
+                isFormValid = false;
+                break;
+            }
+        }
+        this.setState({formElements: updatedFormElements, isFormValid})
     }
 
     sendOrder = (e) => {
@@ -77,7 +126,11 @@ class ContactInfo extends Component {
     render() {
         const formFields = [];
         for(let key in this.state.formElements) {
-            formFields.push(<Input key = {key} identifier = {key} changed = {(e, id) => this.onInputChange(e, id)} value = {this.state.formElements[key]['value']} config = {this.state.formElements[key]['config']} type = {this.state.formElements[key]['type']}></Input>);
+            formFields.push(<Input key = {key} identifier = {key} changed = {(e, id) => this.onInputChange(e, id)} 
+            isValid = {this.state.formElements[key]['isValid']} value = {this.state.formElements[key]['value']} 
+            config = {this.state.formElements[key]['config']} type = {this.state.formElements[key]['type']} 
+            touched= {this.state.formElements[key]['touched']}>
+            </Input>);
         }
         return (
             <form onSubmit = {e => this.sendOrder(e)}>
@@ -86,7 +139,7 @@ class ContactInfo extends Component {
                 </div>
                 <div className={classes.OrderContainer}>
                     <Button type='Danger'>Cancel</Button>
-                    <Button  type='Success'>Order</Button>
+                    <Button  disabled = {!this.state.isFormValid} type='Success'>Order</Button>
                 </div>
             </form>
         )
