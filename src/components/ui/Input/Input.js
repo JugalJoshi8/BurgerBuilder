@@ -4,7 +4,6 @@ import classes from './Input.module.css';
 const Input = (props) => {
     let inputField = null;
     const inputClasses = [classes.Input];
-    debugger;
     if(!props.isValid && props.touched) {
         inputClasses.push(classes.InValid);
     }
