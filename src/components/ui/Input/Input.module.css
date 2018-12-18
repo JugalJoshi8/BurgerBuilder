@@ -7,7 +7,7 @@
     padding: 10px;
 }
 
-.Input:focus {
+.Input:not(.InValid):focus {
     outline: none;
     border: solid 2px rgb(56, 1, 1);
 }
