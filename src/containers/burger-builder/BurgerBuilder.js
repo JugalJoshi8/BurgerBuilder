@@ -15,7 +15,6 @@ import * as actionTypes from './../../store/actions/actions'
 
 class BurgerBuilder extends Component {
     state = {
-        purchasable: false,
         showOrderSummary: false
     }
 
@@ -26,40 +25,14 @@ class BurgerBuilder extends Component {
         console.log('props', this.props);
     }
 
-    prices = {
-        salad: 2,
-        cheese: 4,
-        meat: 6,
-        bacon: 10
-    }
 
     addIngredient = (ingredient) => {
         this.props.addIngredient(ingredient);
-        // const ingredients = { ...this.props.ingredients };
-        // ingredients[ingredient]++;
-        // this.setState({ ingredients: ingredients });
-        // this.setState({ totalPrice: (this.state.totalPrice + this.prices[ingredient]) });
-        this.setPurchasable(this.props.ingredients);
+
     }
 
     removeIngredient = (ingredient) => {
         this.props.removeIngredient(ingredient);
-        // const ingredients = { ...this.props.ingredients };
-        // if (ingredients[ingredient]) {
-        //     ingredients[ingredient]--;
-        //     this.setState({ totalPrice: (this.state.totalPrice - this.prices[ingredient]) });
-        // }
-        // this.setState({ ingredients: ingredients });
-        this.setPurchasable(this.props.ingredients);
-    }
-
-    setPurchasable(ingredients) {
-        const ingredientsCount = Object.keys(ingredients).map((igKey) => {
-            return ingredients[igKey]
-        }).reduce((totalCount, count) => {
-            return totalCount + count;
-        }, 0);
-        this.setState({ purchasable: ingredientsCount > 0 });
     }
 
     showOrderSummary = () => {
@@ -89,11 +62,11 @@ class BurgerBuilder extends Component {
             <RootDiv>
                 <Backdrop show = {this.state.showOrderSummary} clicked = {this.hideOrderSummary}/>
                 <Modal show = {this.state.showOrderSummary}>
-                    <OrderSummary price = {this.state.totalPrice} onCancel = {this.hideOrderSummary} onOrder = {this.checkOut} ingredients={this.props.ingredients}></OrderSummary>
+                    <OrderSummary price = {this.props.totalPrice} onCancel = {this.hideOrderSummary} onOrder = {this.checkOut} ingredients={this.props.ingredients}></OrderSummary>
                 </Modal>
                 <div className={styles.BurgerBuilder}>
                     <Burger ingredients={this.props.ingredients}></Burger>
-                    <IngredientsList orderClicked = {this.showOrderSummary} purchasable={this.state.purchasable} price={this.state.totalPrice} addIngredient={this.addIngredient} removeIngredient={this.removeIngredient} ingredients={this.props.ingredients}></IngredientsList>
+                    <IngredientsList orderClicked = {this.showOrderSummary} purchasable={this.props.isPurchasable} price={this.props.totalPrice} addIngredient={this.addIngredient} removeIngredient={this.removeIngredient} ingredients={this.props.ingredients}></IngredientsList>
                 </div>
             </RootDiv>
         )
@@ -103,7 +76,8 @@ class BurgerBuilder extends Component {
 const mapStateToProps = (state) => {
     return {
         ingredients: state.ingredients,
-        totalPrice: state.totalPrice
+        totalPrice: state.price,
+        isPurchasable: state.isPurchasable
     }
 }
 

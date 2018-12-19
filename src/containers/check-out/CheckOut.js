@@ -4,25 +4,23 @@ import classes from './CheckOut.module.css';
 import {Route} from 'react-router-dom';
 import ContactInfo from './../ContactInfo/ContactInfo';
 import serviceHandler from './../../components/hoc/service-handler/ServiceHandler';
+import {connect} from 'react-redux';
 
 class CheckOut extends Component {
-    state = {
-        ingredients: null
-    }
 
-    componentWillMount() {
-        let ingredients = {};
-        const searchQuery = new URLSearchParams(this.props.location.search).entries();
-        for(let query of searchQuery) {
-            if(query[0] === 'price') {
-                this.setState({'price': query[1]});
-            }
-            else {
-                ingredients[query[0]] = +query[1]; 
-            }
-        }
-        this.setState({ingredients: ingredients});
-    }
+    // componentWillMount() {
+    //     let ingredients = {};
+    //     const searchQuery = new URLSearchParams(this.props.location.search).entries();
+    //     for(let query of searchQuery) {
+    //         if(query[0] === 'price') {
+    //             this.setState({'price': query[1]});
+    //         }
+    //         else {
+    //             ingredients[query[0]] = +query[1]; 
+    //         }
+    //     }
+    //     this.setState({ingredients: ingredients});
+    // }
 
     goToContactInfo = () => {
         console.log(this.props);
@@ -30,27 +28,34 @@ class CheckOut extends Component {
     }
 
     render() {
-        if(!this.state.ingredients) {
+        if(!this.props.ingredients) {
             return null;
         }
         return (
             <div className = {classes.Wrapper}>
                 <h2>Below are your burger ingredients</h2>
                 <div className = {classes.Ingredients}>
-                    <div>Cheese: {this.state.ingredients.cheese}</div>
-                    <div>Salad: {this.state.ingredients.salad}</div>
-                    <div>Meat: {this.state.ingredients.meat}</div>
-                    <div>Bacon: {this.state.ingredients.bacon}</div>
+                    <div>Cheese: {this.props.ingredients.cheese}</div>
+                    <div>Salad: {this.props.ingredients.salad}</div>
+                    <div>Meat: {this.props.ingredients.meat}</div>
+                    <div>Bacon: {this.props.ingredients.bacon}</div>
                 </div>
                 {/* <Burger ingredients={this.state.ingredients} /> */}
                 <div className = {classes.BtnContainer}>
                     <Button type ='Danger'>Cancel</Button>
                     <Button clicked = {this.goToContactInfo} type = 'Success'>Contact Info</Button>
                 </div>
-                <Route path = {`${this.props.match.path}/contact-info`} render = {_ =>  <ContactInfo history = {this.props.history} price = {this.state.price} ingredients = {this.state.ingredients}></ContactInfo>}/>  
+                <Route path = {`${this.props.match.path}/contact-info`} component = {ContactInfo}/>  
             </div>
         )
     }
 }
 
-export default serviceHandler(CheckOut);
+const mapStateToProps = (state) => {
+    return {
+        ingredients: state.ingredients,
+        price: state.price
+    }
+}
+
+export default connect(mapStateToProps)(serviceHandler(CheckOut));

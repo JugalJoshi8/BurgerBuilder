@@ -3,6 +3,7 @@ import classes from './ContactInfo.module.css';
 import Button from './../../components/ui/Button/Button';
 import axios from './../../AxiosOrders';
 import Input from './../../components/ui/Input/Input';
+import {connect} from 'react-redux';
 
 class ContactInfo extends Component {
     state = {
@@ -146,4 +147,11 @@ class ContactInfo extends Component {
     }
 }
 
-export default ContactInfo;
+const mapStateToProps = (state) => {
+    return {
+        ingredients: state.ingredients,
+        price: state.price
+    }
+}
+
+export default connect(mapStateToProps)(ContactInfo);
