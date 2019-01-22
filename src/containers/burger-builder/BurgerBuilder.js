@@ -40,14 +40,15 @@ class BurgerBuilder extends Component {
     }
 
     checkOut = () => {
-        //this.props.history.push('/check-out');
         console.log(this.props);
         let ingredients = [`price=${this.state.totalPrice}`];
         for (let ingredient in this.props.ingredients) {
              ingredients.push(encodeURIComponent(ingredient) + '=' + this.props.ingredients[ingredient])
         }
-        this.props.history.push({pathname: 'check-out', search: '?' + ingredients.join('&')});
+        //this.props.history.push({pathname: 'check-out', search: '?' + ingredients.join('&')});
+        this.props.history.push({pathname: 'check-out'});
         this.setState({showOrderSummary: false});
+        this.props.purchaseInit();
     }
 
     render() {
@@ -71,10 +72,10 @@ class BurgerBuilder extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        ingredients: state.ingredients,
-        totalPrice: state.price,
-        isPurchasable: state.isPurchasable,
-        error: state.error
+        ingredients: state.burgerBuilder.ingredients,
+        totalPrice: state.burgerBuilder.price,
+        isPurchasable: state.burgerBuilder.isPurchasable,
+        error: state.burgerBuilder.error
     }
 }
 
@@ -82,7 +83,8 @@ const mapDispatchToProps = (dispatch) => {
     return {
         addIngredient: ingredient => dispatch(actions.addIngredient(ingredient)),
         removeIngredient: ingredient => dispatch(actions.removeIngredient(ingredient)),
-        fetchIngredients: () => dispatch(actions.fetchIngredients())
+        fetchIngredients: () => dispatch(actions.fetchIngredients()),
+        purchaseInit: ()=> dispatch(actions.purchaseInit())
     }
 }
 

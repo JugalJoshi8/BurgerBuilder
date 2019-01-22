@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import classes from './ContactInfo.module.css';
 import Button from './../../components/ui/Button/Button';
-import axios from './../../AxiosOrders';
 import Input from './../../components/ui/Input/Input';
 import {connect} from 'react-redux';
+import * as actions from './../../store/actions';
 
 class ContactInfo extends Component {
     state = {
@@ -119,9 +119,7 @@ class ContactInfo extends Component {
             price: this.props.price,
             orderDetails
         };
-        axios.post('/orders.json', order).then((response) => {
-            this.props.history.push('/');
-        });
+        this.props.purchaseBurger(order);
     }
 
     render() {
@@ -149,9 +147,15 @@ class ContactInfo extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        ingredients: state.ingredients,
-        price: state.price
+        ingredients: state.burgerBuilder.ingredients,
+        price: state.burgerBuilder.price
     }
 }
 
-export default connect(mapStateToProps)(ContactInfo);
+const mapDispatchToProps = (dispatch) => {
+    return {
+        purchaseBurger: (orderDetails) => dispatch(actions.purchaseBurger(orderDetails))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ContactInfo);

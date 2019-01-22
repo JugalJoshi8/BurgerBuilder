@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Button from '../../components/ui/Button/Button';
 import classes from './CheckOut.module.css';
-import {Route} from 'react-router-dom';
+import {Route, Redirect} from 'react-router-dom';
 import ContactInfo from './../ContactInfo/ContactInfo';
 import serviceHandler from './../../components/hoc/service-handler/ServiceHandler';
 import {connect} from 'react-redux';
@@ -28,11 +28,13 @@ class CheckOut extends Component {
     }
 
     render() {
-        if(!this.props.ingredients) {
-            return null;
+        let redirect = null;
+        if(!this.props.ingredients || this.props.purchased) {
+            redirect = <Redirect to = '/'></Redirect>;
         }
         return (
             <div className = {classes.Wrapper}>
+                {redirect}
                 <h2>Below are your burger ingredients</h2>
                 <div className = {classes.Ingredients}>
                     <div>Cheese: {this.props.ingredients.cheese}</div>
@@ -53,8 +55,9 @@ class CheckOut extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        ingredients: state.ingredients,
-        price: state.price
+        ingredients: state.burgerBuilder.ingredients,
+        price: state.burgerBuilder.price,
+        purchased: state.order.purchased
     }
 }
 
