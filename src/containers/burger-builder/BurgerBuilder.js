@@ -6,10 +6,9 @@ import RootDiv from '../../components/hoc/root-div/RootDiv';
 import Modal from '../../components/ui/Modal/Modal';
 import OrderSummary from '../../components/order-summary/OrderSummary';
 import Backdrop from '../../components/ui/backdrop/Backdrop';
-import axios from '../../AxiosOrders';
 import ServiceHandler from '../../components/hoc/service-handler/ServiceHandler';
 import {connect} from 'react-redux'; 
-import * as actionTypes from './../../store/actions/actions'
+import * as actions from './../../store/actions';
 
 
 
@@ -19,10 +18,7 @@ class BurgerBuilder extends Component {
     }
 
     componentDidMount() {
-        // axios.get('/ingredients.json').then( res => {
-        //     this.setState({ingredients: res.data});
-        // });
-        console.log('props', this.props);
+        this.props.fetchIngredients();        
     }
 
 
@@ -77,14 +73,16 @@ const mapStateToProps = (state) => {
     return {
         ingredients: state.ingredients,
         totalPrice: state.price,
-        isPurchasable: state.isPurchasable
+        isPurchasable: state.isPurchasable,
+        error: state.error
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        addIngredient: ingredient => dispatch({type: actionTypes.ADD_INGREDIENT, ingredient}),
-        removeIngredient: ingredient => dispatch({type: actionTypes.REMOVE_INGREDIENT, ingredient})
+        addIngredient: ingredient => dispatch(actions.addIngredient(ingredient)),
+        removeIngredient: ingredient => dispatch(actions.removeIngredient(ingredient)),
+        fetchIngredients: () => dispatch(actions.fetchIngredients())
     }
 }
 
