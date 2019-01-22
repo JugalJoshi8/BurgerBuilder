@@ -9,7 +9,7 @@ const reducer = (state = initialState, action) => {
         case actionTypes.PURCHASE_BURGER_SUCCESS: 
             return {
                 ...state,
-                orders: [...state.orders, {...action.order, id: action.id}],
+                orders: [...state.orders, {...action.order, key: action.id}],
                 error: false,
                 purchased: true
             };
@@ -23,6 +23,17 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 purchased: false
             };
+        case actionTypes.FETCH_ORDERS_SUCCESS:
+            return {
+                ...state,
+                orders: action.orders,
+                error: false
+            };
+        case actionTypes.FETCH_ORDERS_FAILURE:
+            return {
+                ...state,
+                error: true
+            }
         default: 
             return state;
     } 

@@ -1,20 +1,16 @@
 import React, {Component} from 'react';
 import ServiceHandler from './../../components/hoc/service-handler/ServiceHandler';
 import Order from './../../components/order/Order';
-import axios from './../../AxiosOrders';
+import {connect} from 'react-redux';
+import * as actions from './../../store/actions'
+
 class Orders extends Component {
-    state = {orders: []};
-    componentWillMount() {
-        axios.get('orders.json').then((response) => {
-            const orders = [];
-            for(let key in response.data) {
-                orders.push({...response.data[key], key: key});
-            }
-            this.setState({orders});
-        })
+    componentDidMount() {
+        this.props.fetchOrders();
     }
+
     render() {
-        const orders = this.state.orders.map(order => {
+        const orders = this.props.orders.map(order => {
             return <Order order = {order} key = {order.key}></Order>
         });
         return (
@@ -26,5 +22,17 @@ class Orders extends Component {
     }
 }
 
-export default ServiceHandler(Orders);
+const mapStateToProps = (state) => {
+    return {
+        orders: state.order.orders
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        fetchOrders: () => dispatch(actions.fetchOrders())
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ServiceHandler(Orders));
 

@@ -40,7 +40,6 @@ class BurgerBuilder extends Component {
     }
 
     checkOut = () => {
-        console.log(this.props);
         let ingredients = [`price=${this.state.totalPrice}`];
         for (let ingredient in this.props.ingredients) {
              ingredients.push(encodeURIComponent(ingredient) + '=' + this.props.ingredients[ingredient])

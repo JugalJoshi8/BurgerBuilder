@@ -23,14 +23,13 @@ class CheckOut extends Component {
     // }
 
     goToContactInfo = () => {
-        console.log(this.props);
         this.props.history.push('check-out/contact-info');
     }
 
     render() {
         let redirect = null;
         if(!this.props.ingredients || this.props.purchased) {
-            redirect = <Redirect to = '/'></Redirect>;
+            return <Redirect to = '/'></Redirect>;
         }
         return (
             <div className = {classes.Wrapper}>

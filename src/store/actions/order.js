@@ -22,3 +22,25 @@ export const purchaseBurger = (order) => {
         });
     }   
 }
+
+export const fetchOrdersSuccess = (orders) => {
+    return {type: actionTypes.FETCH_ORDERS_SUCCESS, orders};
+}
+
+export const fetchOrdersFailure = () => {
+    return {type: actionTypes.FETCH_ORDERS_FAILURE};
+}
+
+export const fetchOrders = () => {
+    return (dispatch) => {
+        axios.get('orders.json').then((response) => {
+            const orders = [];
+            for(let key in response.data) {
+                orders.push({...response.data[key], key: key});
+            }
+            dispatch(fetchOrdersSuccess(orders));
+        }).catch(() => {
+            dispatch(fetchOrdersFailure());
+        })
+    }
+}
