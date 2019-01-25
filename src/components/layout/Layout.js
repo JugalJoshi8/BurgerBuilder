@@ -3,8 +3,7 @@ import BurgerBuilder from './../../containers/burger-builder/BurgerBuilder';
 import ToolBar from '../toolbar/Toolbar';
 import SideDrawer from '../sidedrawer/SideDrawer';
 import { Route, Switch } from 'react-router-dom';
-import CheckOut from './../../containers/check-out/CheckOut';
-import Orders from './../../containers/orders/Orders';
+import asyncComponent from '../hoc/async-component/AsyncComponent';
 
 
 class Layout extends Component {
@@ -21,14 +20,17 @@ class Layout extends Component {
     }
 
     render() {
+        const asyncOrders = asyncComponent(() => import('./../../containers/orders/Orders'));
+        const asyncCheckout = asyncComponent(() => import('./../../containers/check-out/CheckOut'));
+
         return (
             <div>
                 <SideDrawer show={this.state.showDrawer} hideDrawer={this.hideDrawer}></SideDrawer>
                 <ToolBar showDrawer={this.showDrawer}></ToolBar>
                 <Switch>
-                    <Route path='/check-out' component={CheckOut} />
+                    <Route path='/check-out' component={asyncCheckout} />
                     <Route path='/' exact component={BurgerBuilder} />
-                    <Route path='/orders' exact component={Orders} />
+                    <Route path='/orders' exact component={asyncOrders} />
                 </Switch>
             </div>
 

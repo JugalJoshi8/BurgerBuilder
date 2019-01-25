@@ -7,7 +7,6 @@ const asyncComponent = (importComponent) => {
         }
 
         componentDidMount() {
-            debugger;
             importComponent().then(cmp => this.setState({component: cmp.default}))
         }
 
